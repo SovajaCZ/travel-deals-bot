@@ -4,9 +4,6 @@ from email.message import EmailMessage
 
 
 def send_email(subject, body, recipient):
-    """
-    Odeslání e-mailu přes SMTP Seznam.cz
-    """
 
     msg = EmailMessage()
     msg["Subject"] = subject
@@ -15,26 +12,23 @@ def send_email(subject, body, recipient):
 
     msg.set_content(body)
 
-    try:
-        print(f"Recipient: {recipient}")
-        print(f"Subject: {subject}")
-        print(f"Body length: {len(body)} znaků")
-        print(f"Email size: {len(msg.as_string())} bajtů")
+    with smtplib.SMTP_SSL(
+        "smtp.seznam.cz",
+        465,
+        timeout=60
+    ) as server:
 
-        with smtplib.SMTP_SSL("smtp.seznam.cz", 465) as server:
-            server.login(
-                os.environ["SMTP_USER"],
-                os.environ["SMTP_PASSWORD"]
-            )
+        server.set_debuglevel(1)
 
-            server.send_message(msg)
+        server.login(
+            os.environ["SMTP_USER"],
+            os.environ["SMTP_PASSWORD"]
+        )
 
-        print("E-mail byl úspěšně odeslán.")
+        server.sendmail(
+            os.environ["SMTP_USER"],
+            [recipient],
+            msg.as_string()
+        )
 
-    except smtplib.SMTPException as e:
-        print(f"SMTP chyba: {e}")
-        raise
-
-    except Exception as e:
-        print(f"Neočekávaná chyba: {e}")
-        raise
+    print("Email odeslán.")
