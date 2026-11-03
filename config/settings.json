@@ -1,21 +1,35 @@
 {
-  "departure_airport": "Praha",
-  "adults": 2,
-  "children": 1,
-  "child_age": 14,
-
-  "destinations": [
-    "Egypt",
-    "Turecko",
-    "Řecko"
+  "searches": [
+    {
+      "name": "Varianta A",
+      "adults": 2,
+      "children": 1,
+      "child_age": 15
+    },
+    {
+      "name": "Varianta B",
+      "adults": 3,
+      "children": 1,
+      "child_age": 15
+    }
   ],
 
-  "max_price_per_person": 10000,
-  "min_stars": 4,
-  "meal": "All Inclusive",
-  "max_departure_days": 14,
+  "departure_airports": [
+    "Praha",
+    "Brno",
+    "Ostrava",
+    "Pardubice"
+  ],
 
-  "email": {
-    "recipient": "jan.sabl@seznam.cz"
-  }
+  "min_stars": 4,
+  "min_rating": 7.0,
+
+  "meal": "All Inclusive",
+
+  "max_price_per_person": 12999,
+
+  "min_nights": 5,
+  "max_nights": 8,
+
+  "max_departure_days": 7
 }
