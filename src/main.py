@@ -1,5 +1,3 @@
-print("XXXXXXXX NOVA VERZE MAIN.PY XXXXXXXX")
-
 import json
 
 from providers import get_offers
