@@ -8,14 +8,22 @@ from mailer import send_email
 def format_offer(offer):
     return f"""
 Destinace: {offer.get('destination', '-')}
+
 Hotel: {offer.get('hotel', '-')}
+
 Kategorie: {offer.get('stars', '-')}*
+
 Hodnocení: {offer.get('rating', '-')}/10
+
 Strava: {offer.get('meal', '-')}
+
 Počet nocí: {offer.get('nights', '-')}
+
 Odletové letiště: {offer.get('airport', '-')}
+
 Termín odletu: {offer.get('departure', '-')}
-CK: {offer.get('agency', '-')}
+
+Cestovní kancelář: {offer.get('agency', '-')}
 
 Cena za osobu:
 {offer.get('price', '-')} Kč
@@ -23,10 +31,10 @@ Cena za osobu:
 Cena celkem:
 {offer.get('total_price', '-')} Kč
 
-Odkaz:
+Odkaz na zájezd:
 {offer.get('url', '-')}
 
---------------------------------------------------
+------------------------------------------------------------
 """
 
 
@@ -46,7 +54,8 @@ email_body.append("PŘEHLED LAST MINUTE NABÍDEK")
 email_body.append("=" * 60)
 email_body.append("")
 
-email_body.append("=" * 60)
+# VARIANTA A
+
 email_body.append("VARIANTA A")
 email_body.append("2 DOSPĚLÍ + 1 DÍTĚ (15 LET)")
 email_body.append("=" * 60)
@@ -64,5 +73,55 @@ else:
     email_body.append("Nebyla nalezena žádná nabídka.")
     email_body.append("")
 
+# VARIANTA B
+
 email_body.append("")
-email_body.append("=" *
+email_body.append("VARIANTA B")
+email_body.append("3 DOSPĚLÍ + 1 DÍTĚ (15 LET)")
+email_body.append("=" * 60)
+email_body.append("")
+
+variant_b = [
+    offer for offer in filtered
+    if offer.get("search_variant") == "B"
+]
+
+if variant_b:
+    for offer in variant_b:
+        email_body.append(format_offer(offer))
+else:
+    email_body.append("Nebyla nalezena žádná nabídka.")
+    email_body.append("")
+
+# NOVÉ NABÍDKY
+
+email_body.append("")
+email_body.append("NOVÉ NABÍDKY")
+email_body.append("=" * 60)
+email_body.append("")
+email_body.append("Historie cen zatím není aktivní.")
+email_body.append("")
+
+# TOP SLEVA
+
+email_body.append("")
+email_body.append("TOP SLEVA DNE")
+email_body.append("=" * 60)
+email_body.append("")
+email_body.append("Sledování zlevnění zatím není aktivní.")
+email_body.append("")
+
+# CENA/VÝKON
+
+email_body.append("")
+email_body.append("NEJLEPŠÍ POMĚR CENA / VÝKON")
+email_body.append("=" * 60)
+email_body.append("")
+email_body.append("Skórování hotelů zatím není aktivní.")
+email_body.append("")
+
+send_email(
+    subject="Denní přehled last minute dovolených",
+    body="\n".join(email_body),
+    recipient="jan.sabl@seznam.cz"
+)
