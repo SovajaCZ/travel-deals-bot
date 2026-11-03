@@ -3,16 +3,19 @@
   "adults": 2,
   "children": 1,
   "child_age": 14,
+
   "destinations": [
     "Egypt",
     "Turecko",
     "Řecko"
   ],
+
   "max_price_per_person": 10000,
   "min_stars": 4,
   "meal": "All Inclusive",
   "max_departure_days": 14,
+
   "email": {
-    "recipient": "TVUJ_EMAIL@SEZNAM.CZ"
+    "recipient": "jan.sabl@seznam.cz"
   }
 }
