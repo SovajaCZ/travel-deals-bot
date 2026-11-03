@@ -1,3 +1,5 @@
+print("******** NOVY MAIN.PY ********")
+
 import json
 
 from providers import get_offers
