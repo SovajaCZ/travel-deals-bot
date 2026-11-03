@@ -1,6 +1,6 @@
 import os
 import smtplib
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 
 
 def send_email(subject, body, recipient):
@@ -8,18 +8,33 @@ def send_email(subject, body, recipient):
     Odeslání e-mailu přes SMTP Seznam.cz
     """
 
-    msg = MIMEText(body, "plain", "utf-8")
-
+    msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = os.environ["SMTP_USER"]
     msg["To"] = recipient
 
-    with smtplib.SMTP_SSL("smtp.seznam.cz", 465) as server:
-        server.login(
-            os.environ["SMTP_USER"],
-            os.environ["SMTP_PASSWORD"]
-        )
+    msg.set_content(body)
 
-        server.send_message(msg)
+    try:
+        print(f"Recipient: {recipient}")
+        print(f"Subject: {subject}")
+        print(f"Body length: {len(body)} znaků")
+        print(f"Email size: {len(msg.as_string())} bajtů")
 
-    print("E-mail byl úspěšně odeslán.")
+        with smtplib.SMTP_SSL("smtp.seznam.cz", 465) as server:
+            server.login(
+                os.environ["SMTP_USER"],
+                os.environ["SMTP_PASSWORD"]
+            )
+
+            server.send_message(msg)
+
+        print("E-mail byl úspěšně odeslán.")
+
+    except smtplib.SMTPException as e:
+        print(f"SMTP chyba: {e}")
+        raise
+
+    except Exception as e:
+        print(f"Neočekávaná chyba: {e}")
+        raise
