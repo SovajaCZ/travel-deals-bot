@@ -1,4 +1,4 @@
-print("******** NOVY MAIN.PY ********")
+print("XXXXXXXX NOVA VERZE MAIN.PY XXXXXXXX")
 
 import json
 
