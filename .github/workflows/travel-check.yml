@@ -3,10 +3,8 @@ name: Travel Deals Bot
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'   # 06:00 Praha
-    - cron: '0 11 * * *'  # 12:00 Praha
-    - cron: '0 17 * * *'  # 18:00 Praha
-
+    - cron: '0 * * * *'   # 06:00 Praha
+    
 jobs:
   scan:
     runs-on: ubuntu-latest
