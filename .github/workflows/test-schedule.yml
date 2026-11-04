@@ -1,0 +1,14 @@
+name: Test Scheduler
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test
+        run: echo "Scheduler funguje"
